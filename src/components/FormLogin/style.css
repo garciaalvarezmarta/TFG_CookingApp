@@ -1,0 +1,67 @@
+body {
+  background-color: rgb(241, 241, 241) !important;
+}
+.container {
+  text-align: center;
+}
+
+.formContainer {
+  margin: auto;
+  margin-top: 5em;
+}
+
+.formCard {
+  background-color: rgb(255, 255, 255);
+  margin-bottom: 1em;
+  padding: 2em;
+}
+
+.mainCard{
+    padding-top:3em;
+    min-height:250px;
+}
+
+.buttonForm {
+  background-color: #cd8b62;
+  border-color: #cd8b62;
+  box-shadow: 6px 8px 13px -9px #696969;
+}
+.buttonForm:hover {
+  background-color: #c04e29 !important; 
+  border-color: #c04e29 !important;
+}
+
+.buttonForm:focus {
+  background-color: #cd8b62;
+  border-color: #cd8b62;
+  box-shadow: none;
+  box-shadow: 6px 7px 13px -9px #696969;
+}
+
+.buttonForm:active {
+  background-color: #c04e29;
+  border-color: #c04e29;
+  box-shadow: none !important;
+  border: 1px solid white;
+}
+
+.googleButton {
+    background-color: white;
+    border: 1px solid lightblue;
+    border-radius: 5px;
+    padding: 0.3em 1em 0.3em 1em;
+    color: black;
+  }
+  
+  .googleIcon {
+    margin-bottom: 3px;
+    width: 15px;
+  }
+
+.link {
+  color: #cd8b62;
+  text-decoration: none;
+}
+.link:hover {
+  color: #c04e29;
+}

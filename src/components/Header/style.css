@@ -1,0 +1,14 @@
+.navbar{
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+
+.searchIcon{
+    margin-top:0.75em;
+    margin-right: 1em;
+}
+
+.addIcon{
+    font-size: 28px;
+}

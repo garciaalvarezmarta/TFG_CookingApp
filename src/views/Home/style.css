@@ -1,0 +1,10 @@
+.mainImg{
+    width: 100%;
+    height: 700px;
+     object-fit: cover;
+     margin-top: 1em;
+}
+
+.mainContainer{
+    padding-top: 2em;
+}
