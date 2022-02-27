@@ -4,11 +4,16 @@ const port = 5000
 
 const { mongoose} = require('./database')
 
+const Recipe = require('../models/Recipe')
 
 
-app.get('/allRecipes', (req, res) => {
-  mongoose.get('recipe')
+app.get('/allRecipes', async (req, res) => {
+  const allRecipes = await Recipe.find();
+  res.json(allRecipes);
 })
+
+
+
 
 app.listen(port, () => {
     console.log(`Server running in port ${port}`)
