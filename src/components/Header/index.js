@@ -12,7 +12,7 @@ import {
 
 function Header() {
   return (
-    <Navbar bg="light" expand="sm" className="navbar">
+    <Navbar expand="sm" className="navbar">
       <Container fluid>
         <Navbar.Brand href="#" className="d-block d-sm-none">
           Cooking App

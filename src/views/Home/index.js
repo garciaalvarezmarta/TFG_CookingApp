@@ -14,7 +14,7 @@ function Home() {
   //Protocolo HTTP -->
 
   const getRecipes = () => {
-    axios.get("http://localhost:5000/allRecipes").then((result) => {
+    axios.get("http://localhost:5000/").then((result) => {
       setRecipes(result.data);
     });
   };
@@ -28,15 +28,20 @@ function Home() {
       <Header></Header>
       <main className="container">
         <div className="col-12 mainContainer">
-          {/* nombre de la receta*/}
-          <h1>Receta del mes</h1>
+          {/*RECETA DEL MES*/}
+
           <img
             src="https://e00-elmundo.uecdn.es/assets/multimedia/imagenes/2022/01/12/16420042054594.jpg"
             className="mainImg"
           />
-          {recipes.map((recipe) => (
-            <CardRecipe name={recipe.name} description={recipe.description}></CardRecipe>
-         ))}
+          <h1 className="mt-3 mb-5">Receta del mes del alquiñado</h1>
+          <hr />
+          {/*ÚLTIMAS RECETAS*/}
+          <div className="row mt-5 mb-5">
+            {recipes.map((recipe) => (
+              <CardRecipe name={recipe.name} img={recipe.img} key={recipe._id} id={recipe._id}></CardRecipe>
+            ))}
+          </div>
         </div>
       </main>
     </div>

@@ -11,11 +11,17 @@ app.use(cors());
 app.use(bodyParser.json());
 //API RECIPES
 //GetAll
-app.get("/allRecipes", async (req, res) => {
+app.get("/", async (req, res) => {
   const allRecipes = await Recipe.find();
   res.json(allRecipes);
 });
+
 //GetByID
+app.get("/:id", async(req,res) =>{
+  const id = req.params.id;
+  const recipe = await Recipe.findById(id);
+  res.json(recipe);
+})
 
 //GetByFilter
 
@@ -27,13 +33,24 @@ app.post("/saveRecipe", async (req, res) => {
     img: req.body.img,
     stars: req.body.stars,
   });
-  await recipe.save()
-  res.json(recipe)
+  await recipe.save();
+  res.json(recipe);
 });
 
 //Update --> PUT / PATCH
+app.put("/updateRecipe/:id", async (req, res) => {
+  const id= req.params.id;
+  const recipe = await Recipe.findByIdAndUpdate(id, req.body, {new:true});
+  await recipe.save();
+  res.json(recipe);
+});
 
 //Delete --> DELETE
+app.delete("/deleteRecipe/:id", async (req, res) => {
+  const id= req.params.id;
+  const recipe = await Recipe.findByIdAndDelete(id);
+  res.status(204).send();
+})
 
 //API INGREDIENTS..
 
