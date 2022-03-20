@@ -1,0 +1,19 @@
+.tittleArea{
+    margin-top: 2em !important;
+
+}
+
+.descriptionArea{
+    margin-top: 2em !important;
+    min-height: 100px !important;
+}
+
+.stepsArea{
+    margin-top: 2em !important;
+    min-height: 300px !important;
+}
+
+.sendButton{
+    background-color: rgb(63, 88, 63) !important;
+    border-color:rgb(63, 88, 63) !important;
+}

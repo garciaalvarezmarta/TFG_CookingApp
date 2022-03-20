@@ -1,0 +1,29 @@
+.recipeContainer{
+    margin-top:3em;    
+}
+
+.main{
+    padding-right: 7em;
+    padding-left: 7em;
+}
+
+
+.moreRecipes{
+    height: 900px;
+}
+
+.imgRecipe{
+    margin-top: 1em;
+    margin-bottom: 1em;
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+    
+
+}
+
+.p{
+    margin: 3em;
+    background-color: lightblue;
+    height: 800px;
+}

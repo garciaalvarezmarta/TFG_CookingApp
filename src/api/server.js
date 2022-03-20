@@ -30,6 +30,7 @@ app.post("/saveRecipe", async (req, res) => {
   const recipe = new Recipe({
     name: req.body.name,
     description: req.body.description,
+    steps: req.body.steps,
     img: req.body.img,
     stars: req.body.stars,
   });
