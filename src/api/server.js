@@ -5,19 +5,20 @@ const port = 5000;
 
 const { mongoose } = require("./database");
 const Recipe = require("../models/Recipe");
+const Ingredient = require("../models/Ingredient");
 const bodyParser = require("body-parser");
 
 app.use(cors());
 app.use(bodyParser.json());
 //API RECIPES
 //GetAll
-app.get("/", async (req, res) => {
+app.get("/recipes", async (req, res) => {
   const allRecipes = await Recipe.find();
   res.json(allRecipes);
 });
 
 //GetByID
-app.get("/:id", async(req,res) =>{
+app.get("/recipes/:id", async(req,res) =>{
   const id = req.params.id;
   const recipe = await Recipe.findById(id);
   res.json(recipe);
@@ -54,6 +55,19 @@ app.delete("/deleteRecipe/:id", async (req, res) => {
 })
 
 //API INGREDIENTS..
+
+//GetAllIngredients
+app.get("/ingredients", async (req, res) => {
+  const allIngredients = await Ingredient.find();
+  res.json(allIngredients);
+});
+
+//GetIngredientById
+app.get("/Ingredients/:id", async(req,res) => {
+  const id= req.params.id;
+  const ingredient = await Ingredient.findById(id);
+  res.json(ingredient);
+})
 
 //API...
 

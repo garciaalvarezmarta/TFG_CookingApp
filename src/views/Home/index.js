@@ -14,7 +14,7 @@ function Home() {
   //Protocolo HTTP -->
 
   const getRecipes = () => {
-    axios.get("http://localhost:5000/").then((result) => {
+    axios.get("http://localhost:5000/recipes").then((result) => {
       setRecipes(result.data);
     });
   };

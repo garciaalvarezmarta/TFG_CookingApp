@@ -13,7 +13,7 @@ function ShowRecipe() {
   });
 
   const getRecipe = () => {
-    axios.get(`http://localhost:5000/${id}`).then((result) => {
+    axios.get(`http://localhost:5000/recipes/${id}`).then((result) => {
       setRecipe(result.data);
     });
   };

@@ -30,6 +30,10 @@ function Header() {
               <NavDropdown.Item href="#action4">Dulces</NavDropdown.Item>
               <NavDropdown.Item href="#action5">Saladas</NavDropdown.Item>
             </NavDropdown>
+
+            <Nav.Link href="/">
+               Home
+            </Nav.Link>
           </Nav>
           <Nav className="d-flex">
             <Nav.Link href="/newRecipe">

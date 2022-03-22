@@ -1,12 +1,14 @@
-import React, { useState  } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Ingredient from "../../models/Ingredient";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
 import { Button, Form, FloatingLabel } from "react-bootstrap";
 import Header from "../../components/Header";
 import "./style.css";
 
 function NewRecipe() {
-  let navigate  = useNavigate();
+  let navigate = useNavigate();
 
   const [recipe, setRecipe] = useState({
     name: "",
@@ -14,12 +16,21 @@ function NewRecipe() {
     steps: "",
   });
 
-  const saveRecipe = () => {
-      console.log(recipe);
-      axios.post("http://localhost:5000/saveRecipe", recipe).then((res)=>{
-        navigate(`/showRecipe/${res.data._id}`)
-      })
+  const [ingredients, setIngredients] = useState([]);
+  const [options, setOptions] = useState([]);
 
+  const getIngredients = () => {
+    axios.get("http://localhost:5000/ingredients").then((result) => {
+      setIngredients(result.data);
+      
+    });
+  };
+
+  const saveRecipe = () => {
+    console.log(recipe);
+    axios.post("http://localhost:5000/saveRecipe", recipe).then((res) => {
+      navigate(`/showRecipe/${res.data._id}`);
+    });
   };
 
   const handler = (e) => {
@@ -27,6 +38,17 @@ function NewRecipe() {
       return { ...previousVal, [e.target.name]: e.target.value };
     });
   };
+
+  useEffect(() => {
+    getIngredients();
+  }, []);
+
+  useEffect(() => {
+    setOptions(ingredients.map((ingredient) => ({
+      value: ingredient.name,
+      label: ingredient.name,
+    })))
+  }, [ingredients]);
 
   return (
     <>
@@ -53,6 +75,9 @@ function NewRecipe() {
               className="descriptionArea"
               onChange={(e) => handler(e)}
             />
+
+            <Select options={options} isMulti />
+            
           </FloatingLabel>
           <FloatingLabel
             controlId="floatingTextarea"
@@ -68,7 +93,7 @@ function NewRecipe() {
               onChange={(e) => handler(e)}
             />
           </FloatingLabel>
-          
+
           <Button
             id="button"
             variant="primary"
