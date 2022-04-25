@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { Button, Form, FloatingLabel } from "react-bootstrap";
 import Header from "../../components/Header";
+import { getCurrentUserId, getNameFromUser } from "../../firebase";
 import "./style.css";
 
 function NewRecipe() {
@@ -14,6 +15,9 @@ function NewRecipe() {
     name: "",
     description: "",
     steps: "",
+    ingredients: [],
+    userId: getCurrentUserId(),
+    userName: getNameFromUser()
   });
 
   const [ingredients, setIngredients] = useState([]);
@@ -22,7 +26,6 @@ function NewRecipe() {
   const getIngredients = () => {
     axios.get("http://localhost:5000/ingredients").then((result) => {
       setIngredients(result.data);
-      
     });
   };
 
@@ -39,15 +42,28 @@ function NewRecipe() {
     });
   };
 
+  const handlerIngredients = (e) => {
+    console.log(e);
+    const ivalues = e.map((ivalue) => (
+      ivalue.value
+    ))
+    console.log(ivalues);
+    setRecipe((previousVal) => {
+      return { ...previousVal, "ingredients": ivalues}
+    })
+  }
+
   useEffect(() => {
     getIngredients();
   }, []);
 
   useEffect(() => {
-    setOptions(ingredients.map((ingredient) => ({
-      value: ingredient.name,
-      label: ingredient.name,
-    })))
+    setOptions(
+      ingredients.map((ingredient) => ({
+        value: ingredient.name,
+        label: ingredient.name,
+      }))
+    );
   }, [ingredients]);
 
   return (
@@ -75,10 +91,16 @@ function NewRecipe() {
               className="descriptionArea"
               onChange={(e) => handler(e)}
             />
-
-            <Select options={options} isMulti />
-            
           </FloatingLabel>
+
+          <Select
+            options={options}
+            name="ingredients"
+            placeholder="Ingredientes *"
+            isMulti
+            onChange={(e) => handlerIngredients(e)}
+          />
+
           <FloatingLabel
             controlId="floatingTextarea"
             label="Preparación *"
@@ -99,7 +121,7 @@ function NewRecipe() {
             variant="primary"
             onClick={saveRecipe}
             className="sendButton"
-            disabled={!(recipe.name !== "" && recipe.steps !== "")}
+            disabled={!(recipe.name !== "" && recipe.steps !== "" && recipe.ingredients.length !== 0)}
           >
             Send
           </Button>

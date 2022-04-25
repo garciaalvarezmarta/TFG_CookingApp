@@ -8,8 +8,10 @@ const Recipe = require("../models/Recipe");
 const Ingredient = require("../models/Ingredient");
 const bodyParser = require("body-parser");
 
+
 app.use(cors());
 app.use(bodyParser.json());
+
 //API RECIPES
 //GetAll
 app.get("/recipes", async (req, res) => {
@@ -24,6 +26,15 @@ app.get("/recipes/:id", async(req,res) =>{
   res.json(recipe);
 })
 
+
+//ShowRecipesByUser
+app.get("/userRecipes/:id", async(req,res) => {
+  const id = req.params.id;
+  const allRecipes = await Recipe.find().where('userId').equals(id);
+  res.json(allRecipes);
+})
+
+
 //GetByFilter
 
 //Save --> POST
@@ -32,8 +43,11 @@ app.post("/saveRecipe", async (req, res) => {
     name: req.body.name,
     description: req.body.description,
     steps: req.body.steps,
+    ingredients: req.body.ingredients,
     img: req.body.img,
     stars: req.body.stars,
+    userId: req.body.userId,
+    userName: req.body.userName
   });
   await recipe.save();
   res.json(recipe);
@@ -54,6 +68,7 @@ app.delete("/deleteRecipe/:id", async (req, res) => {
   res.status(204).send();
 })
 
+
 //API INGREDIENTS..
 
 //GetAllIngredients
@@ -67,6 +82,14 @@ app.get("/Ingredients/:id", async(req,res) => {
   const id= req.params.id;
   const ingredient = await Ingredient.findById(id);
   res.json(ingredient);
+})
+
+//GetIngredientByIdRecipe
+app.get("/recipes/:id/ingredients", async(req,res) =>{
+  const id = req.params.id;
+  const recipe = await Recipe.findById(id);
+  const ingredients = recipe.ingredients;
+  res.json(ingredients);
 })
 
 //API...

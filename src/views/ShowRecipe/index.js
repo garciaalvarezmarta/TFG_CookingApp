@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Header from "../../components/Header";
 import "./style.css";
+import { getCurrentUserId } from "../../firebase";
 
 function ShowRecipe() {
   const { id } = useParams();
@@ -10,6 +11,9 @@ function ShowRecipe() {
     name: "",
     description: "",
     img: "",
+    ingredients: [],
+    userName: "",
+    userId: "",
   });
 
   const getRecipe = () => {
@@ -17,6 +21,8 @@ function ShowRecipe() {
       setRecipe(result.data);
     });
   };
+
+  const editButton = <button>Edit</button>;
 
   useEffect(() => {
     getRecipe();
@@ -28,22 +34,25 @@ function ShowRecipe() {
       <div className=" container-fluid row recipeContainer">
         <main className="col-md-9 main">
           <h1>{recipe.name}</h1>
-          <img src={recipe.img} className="imgRecipe"/>
+          {getCurrentUserId()==recipe.userId?editButton:""}
+          <img src={recipe.img} className="imgRecipe" />
           <div>
             <p>{recipe.description}</p>
             <hr />
             <h2>Ingredientes:</h2>
-            <p>{recipe.ingredients}</p>
+
+            {recipe.ingredients.map((ingredient) => (
+              <p key={ingredient}>- {ingredient}</p>
+            ))}
             <hr />
             <h2>Elaboración:</h2>
             <p>{recipe.steps}</p>
+            <p>Subido por {recipe.userName}</p>
           </div>
         </main>
         <aside className="col-md-3 moreRecipes">
-          <div className="p">
-    
-          </div>
-          </aside>
+          <div className="p"></div>
+        </aside>
       </div>
     </div>
   );

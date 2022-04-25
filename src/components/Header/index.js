@@ -2,13 +2,15 @@ import React from "react";
 import { logout } from "../../firebase";
 import "./style.css";
 import { BsSearch } from "react-icons/bs";
-import {GrFormAdd} from "react-icons/gr";
+import { GrFormAdd } from "react-icons/gr";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  Navbar,
-  Nav,
-  NavDropdown,
-  Container,
-} from "react-bootstrap";
+  faUser,
+  faBookmark,
+  faSignOut,
+  faUtensils,
+} from "@fortawesome/free-solid-svg-icons";
+import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 
 function Header() {
   return (
@@ -27,13 +29,11 @@ function Header() {
             <BsSearch className="searchIcon" />
             <NavDropdown title="Recetas" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">Vegetarianas</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Dulces</NavDropdown.Item>
+              <NavDropdown.Item href="#action4">Celiacos</NavDropdown.Item>
               <NavDropdown.Item href="#action5">Saladas</NavDropdown.Item>
             </NavDropdown>
 
-            <Nav.Link href="/">
-               Home
-            </Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
           </Nav>
           <Nav className="d-flex">
             <Nav.Link href="/newRecipe">
@@ -44,12 +44,21 @@ function Header() {
               title="Usuario"
               id="navbarScrollingDropdown "
             >
-              <NavDropdown.Item href="#action3">Mi Perfil</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Mis Recetas</NavDropdown.Item>
+              <NavDropdown.Item href="#action3">
+                <FontAwesomeIcon className="userIcon" icon={faUser} />
+                Mi Perfil
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/myRecipes">
+                {" "}
+                <FontAwesomeIcon className="userIcon" icon={faUtensils} />
+                Mis Recetas
+              </NavDropdown.Item>
               <NavDropdown.Item href="#action5">
+                <FontAwesomeIcon className="userIcon" icon={faBookmark} />
                 Recetas guardadas
               </NavDropdown.Item>
               <NavDropdown.Item onClick={logout}>
+                <FontAwesomeIcon className="userIcon" icon={faSignOut} />
                 Cerrar sesión
               </NavDropdown.Item>
             </NavDropdown>

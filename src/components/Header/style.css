@@ -4,6 +4,7 @@
     width: 100%;
     background-color: rgb(163,170,131);
     height: 80px;
+    z-index:2000;
 }
 
 .searchIcon{
@@ -13,4 +14,7 @@
 
 .addIcon{
     font-size: 28px;
+}
+.userIcon{
+    margin-right: 0.8em;
 }

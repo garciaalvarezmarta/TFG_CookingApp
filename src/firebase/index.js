@@ -22,6 +22,7 @@ const firebaseConfig = {
 export const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 let uid = "no user";
+let userName = "no user";
 
 //LOGIN AND REGISTER METHODS
 //Register with mail
@@ -44,7 +45,9 @@ export const loginWithGoogle = () => {
 //CHECK AUTH STATE
 onAuthStateChanged(auth, (user) => {
   if(user){
+    console.log(user);
     uid = user.uid;
+    userName=user.displayName;
   }
 });
 
@@ -55,4 +58,12 @@ export const isLogged = () =>{
 
 export const logout = () => {
   signOut(auth);  
+}
+
+export const getCurrentUserId = () => {
+  return uid;
+}
+
+export const getNameFromUser = () => {
+    return userName;
 }

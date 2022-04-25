@@ -9,6 +9,7 @@ import Home from "./views/Home";
 import Register from "./views/Register";
 import NewRecipe from "./views/NewRecipe";
 import ShowRecipe from "./views/ShowRecipe";
+import MyRecipes from "./views/MyRecipes"
 
 function App() {
   const [user, setUser] = useState();
@@ -42,6 +43,11 @@ function App() {
             exact
             path="/showRecipe/:id"
             element={user ? <ShowRecipe /> : <Login />}
+          />
+          <Route
+            exact
+            path="/myRecipes"
+            element={user ? <MyRecipes /> : <Login />}
           />
         </Routes>
       </Router>
