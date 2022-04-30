@@ -2,9 +2,11 @@
     position: sticky;
     top: 0;
     width: 100%;
-    background-color: rgb(163,170,131);
+    background-color: transparent;
     height: 80px;
     z-index:2000;
+    font-size: 20px;
+    padding: 0 1em 0 1em;
 }
 
 .searchIcon{

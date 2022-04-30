@@ -1,0 +1,19 @@
+.groupContainer{
+    height: 300px;
+    border-radius: 20px;
+    margin-top: 2em;
+    overflow: hidden;
+
+}
+
+.titleGroup{
+    margin-left: 1em ;
+    padding-top: 0.5em;
+}
+
+.backImg{
+    margin-top: 3em;
+    margin-left: 3em ;
+    width: 350px;
+
+}
