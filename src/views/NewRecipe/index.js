@@ -5,19 +5,34 @@ import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { Button, Form, FloatingLabel } from "react-bootstrap";
 import Header from "../../components/Header";
-import { getCurrentUserId, getNameFromUser } from "../../firebase";
+import { getCurrentUserId, getNameFromUser, storageImg } from "../../firebase";
 import "./style.css";
 
 function NewRecipe() {
+  //Ruta de la img local para previsualizar la img cuando la cambiamos
+  const [image, setImage] = useState("/assets/recipeDefault.jpg");
+  //Archivo que guardamos en el proyecto
+  const [imgFile, setImgFile] = useState(null);
+
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]));
+      setImgFile(event.target.files[0]);
+    }
+  };
+
+  //Cuando creo la receta navego a su vista
   let navigate = useNavigate();
 
+  //Guardar el estado de la receta creada
   const [recipe, setRecipe] = useState({
     name: "",
     description: "",
     steps: "",
     ingredients: [],
+    img: "/assets/recipeDefault.jpg",
     userId: getCurrentUserId(),
-    userName: getNameFromUser()
+    userName: getNameFromUser(),
   });
 
   const [ingredients, setIngredients] = useState([]);
@@ -30,7 +45,15 @@ function NewRecipe() {
   };
 
   const saveRecipe = () => {
-    console.log(recipe);
+    let formData = new FormData();
+    formData.append("image", imgFile);
+    //Esperar a que se haga la llamada --> res ruta de la imagen
+    axios.post("http://localhost:5000/uploadImg", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    //Entonces recipe image = ruta de la image y despues el save
     axios.post("http://localhost:5000/saveRecipe", recipe).then((res) => {
       navigate(`/showRecipe/${res.data._id}`);
     });
@@ -44,14 +67,12 @@ function NewRecipe() {
 
   const handlerIngredients = (e) => {
     console.log(e);
-    const ivalues = e.map((ivalue) => (
-      ivalue.value
-    ))
+    const ivalues = e.map((ivalue) => ivalue.value);
     console.log(ivalues);
     setRecipe((previousVal) => {
-      return { ...previousVal, "ingredients": ivalues}
-    })
-  }
+      return { ...previousVal, ingredients: ivalues };
+    });
+  };
 
   useEffect(() => {
     getIngredients();
@@ -71,6 +92,10 @@ function NewRecipe() {
       <Header />
       <main className="container">
         <Form>
+          {/* Imagen de la receta */}
+          <img src={image} alt="preview image" className="recipeImg" />
+          <input type="file" onChange={onImageChange} />
+
           <Form.Control
             required
             type="text"
@@ -121,7 +146,13 @@ function NewRecipe() {
             variant="primary"
             onClick={saveRecipe}
             className="sendButton"
-            disabled={!(recipe.name !== "" && recipe.steps !== "" && recipe.ingredients.length !== 0)}
+            disabled={
+              !(
+                recipe.name !== "" &&
+                recipe.steps !== "" &&
+                recipe.ingredients.length !== 0
+              )
+            }
           >
             Send
           </Button>

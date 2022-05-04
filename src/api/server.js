@@ -7,10 +7,29 @@ const { mongoose } = require("./database");
 const Recipe = require("../models/Recipe");
 const Ingredient = require("../models/Ingredient");
 const bodyParser = require("body-parser");
+const path = require('path');
 
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: (req, file, cb) =>  {
+    cb(null, 'Images')
+  },
+  filename: (req, file, cb) => {
+    console.log(file)
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({storage: storage})
 
 app.use(cors());
 app.use(bodyParser.json());
+
+//IMG
+
+app.post("/uploadImg", upload.single("image"), (req, res)=>{
+  console.log(req.body)
+});
 
 //API RECIPES
 //GetAll
@@ -33,6 +52,7 @@ app.get("/userRecipes/:id", async(req,res) => {
   const allRecipes = await Recipe.find().where('userId').equals(id);
   res.json(allRecipes);
 })
+
 
 
 //GetByFilter
