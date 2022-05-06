@@ -35,7 +35,7 @@ function ShowRecipe() {
         <main className="col-md-9 main">
           <h1>{recipe.name}</h1>
           {getCurrentUserId()==recipe.userId?editButton:""}
-          <img src={recipe.img} className="imgRecipe" />
+          <img src={"/assets/recipeImages/"+recipe.img} className="imgRecipe" />
           <div>
             <p>{recipe.description}</p>
             <hr />

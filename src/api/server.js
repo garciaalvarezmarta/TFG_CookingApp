@@ -12,7 +12,7 @@ const path = require('path');
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: (req, file, cb) =>  {
-    cb(null, 'Images')
+    cb(null, 'public/assets/recipeImages')
   },
   filename: (req, file, cb) => {
     console.log(file)
@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 //IMG
 
 app.post("/uploadImg", upload.single("image"), (req, res)=>{
-  console.log(req.body)
+  res.json(res.req.file.filename)
 });
 
 //API RECIPES

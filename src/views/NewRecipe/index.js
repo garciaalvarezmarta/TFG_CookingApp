@@ -5,14 +5,15 @@ import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { Button, Form, FloatingLabel } from "react-bootstrap";
 import Header from "../../components/Header";
-import { getCurrentUserId, getNameFromUser, storageImg } from "../../firebase";
+import { getCurrentUserId, getNameFromUser } from "../../firebase";
 import "./style.css";
 
 function NewRecipe() {
   //Ruta de la img local para previsualizar la img cuando la cambiamos
-  const [image, setImage] = useState("/assets/recipeDefault.jpg");
+  const [image, setImage] = useState("/assets/recipeImages/recipeDefault.jpg");
   //Archivo que guardamos en el proyecto
   const [imgFile, setImgFile] = useState(null);
+  const [isSave, setIsSave] = useState(false);
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -30,33 +31,36 @@ function NewRecipe() {
     description: "",
     steps: "",
     ingredients: [],
-    img: "/assets/recipeDefault.jpg",
+    img: "recipeDefault.jpg",
     userId: getCurrentUserId(),
     userName: getNameFromUser(),
   });
 
   const [ingredients, setIngredients] = useState([]);
   const [options, setOptions] = useState([]);
-
   const getIngredients = () => {
     axios.get("http://localhost:5000/ingredients").then((result) => {
       setIngredients(result.data);
     });
   };
 
-  const saveRecipe = () => {
-    let formData = new FormData();
-    formData.append("image", imgFile);
-    //Esperar a que se haga la llamada --> res ruta de la imagen
-    axios.post("http://localhost:5000/uploadImg", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+  const saveRecipe = async () => {
+    let urlImg = {data : "recipeDefault.jpg"}
+    if(imgFile){
+      let formData = new FormData();
+      formData.append("image", imgFile);
+      //Esperar a que se haga la llamada --> res ruta de la imagen
+      urlImg = await axios.post("http://localhost:5000/uploadImg", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    }
+    setIsSave(true)
+    setRecipe((previousVal) => {
+      return { ...previousVal, "img" : urlImg?.data };
     });
-    //Entonces recipe image = ruta de la image y despues el save
-    axios.post("http://localhost:5000/saveRecipe", recipe).then((res) => {
-      navigate(`/showRecipe/${res.data._id}`);
-    });
+    
   };
 
   const handler = (e) => {
@@ -86,6 +90,17 @@ function NewRecipe() {
       }))
     );
   }, [ingredients]);
+
+
+  useEffect(()=>{
+    if(isSave){
+      console.log("RECETAAA--> ",recipe)
+      axios.post("http://localhost:5000/saveRecipe", recipe).then((res) => {
+      navigate(`/showRecipe/${res.data._id}`);
+    });
+    }
+  }, [recipe]);
+
 
   return (
     <>

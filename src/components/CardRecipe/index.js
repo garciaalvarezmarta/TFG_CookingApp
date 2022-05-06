@@ -10,7 +10,7 @@ function CardRecipe(props) {
   return (
     <div className="col-12 col-md-6 col-lg-3">
       <Link to={"/showRecipe/" + props.id} className="linkRecipe">
-        <img src={props.img} className="recipeImage" />
+        <img src={"/assets/recipeImages/"+props.img} className="recipeImage" />
         <div className="row">
           <p className="cardRecipeTitle">{props.name}</p>
           <div></div>
