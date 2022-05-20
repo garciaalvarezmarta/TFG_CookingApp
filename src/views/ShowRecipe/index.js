@@ -4,6 +4,11 @@ import axios from "axios";
 import Header from "../../components/Header";
 import "./style.css";
 import { getCurrentUserId } from "../../firebase";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "react-router-dom";
+import {
+  faPenToSquare
+} from "@fortawesome/free-solid-svg-icons";
 
 function ShowRecipe() {
   const { id } = useParams();
@@ -22,7 +27,7 @@ function ShowRecipe() {
     });
   };
 
-  const editButton = <button>Edit</button>;
+  const editButton = <Link to={"/editRecipe/"+id}><button className="btn btn-primary "><FontAwesomeIcon icon={faPenToSquare}/> Edit</button></Link>
 
   useEffect(() => {
     getRecipe();

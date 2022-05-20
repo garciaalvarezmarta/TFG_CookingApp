@@ -6,6 +6,7 @@ const port = 5000;
 const { mongoose } = require("./database");
 const Recipe = require("../models/Recipe");
 const Ingredient = require("../models/Ingredient");
+const Person = require("../models/Person");
 const bodyParser = require("body-parser");
 const path = require('path');
 
@@ -116,4 +117,16 @@ app.get("/recipes/:id/ingredients", async(req,res) =>{
 
 app.listen(port, () => {
   console.log(`Server running in port ${port}`);
+});
+
+//API People
+
+app.post("/savePerson", async (req, res) => {
+  const person = new Person({
+    email: req.body.email,
+    password: req.body.password,
+    username: req.body.username
+  });
+  await person.save();
+  res.json(person);
 });

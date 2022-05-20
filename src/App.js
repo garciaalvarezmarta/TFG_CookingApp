@@ -10,6 +10,7 @@ import Register from "./views/Register";
 import NewRecipe from "./views/NewRecipe";
 import ShowRecipe from "./views/ShowRecipe";
 import MyRecipes from "./views/MyRecipes"
+import ScrollToTop from "./hooks/ScrollToTop";
 
 function App() {
   const [user, setUser] = useState();
@@ -26,6 +27,7 @@ function App() {
   return (
     <div className="App">
       <Router>
+        <ScrollToTop/>
         <Routes>
           <Route exact path="/" element={user ? <Home /> : <Login />} />
           <Route exact path="/home" element={user ? <Home /> : <Login />} />
@@ -37,6 +39,11 @@ function App() {
           <Route
             exact
             path="/newRecipe"
+            element={user ? <NewRecipe /> : <Login />}
+          />
+          <Route
+            exact
+            path="/editRecipe/:id"
             element={user ? <NewRecipe /> : <Login />}
           />
           <Route

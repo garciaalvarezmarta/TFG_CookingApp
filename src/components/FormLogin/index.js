@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { registerWithEmail, loginWithEmail, loginWithGoogle } from "../../firebase";
+import axios from "axios";
 import "./style.css";
 
 function FormLogin(props) {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const [person, setPerson] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
 
   let inputName = "";
   let buttonText = "Iniciar Sesión";
@@ -39,6 +46,7 @@ function FormLogin(props) {
       // e es la etiqueta en la que se ejecuta la acción
       e.preventDefault(); //que no se ejecute nada por defecto
       registerWithEmail(email, password, username);
+      setPerson({username: username, email:email, password: password}); 
     };
 
     switchPage = (
@@ -47,6 +55,13 @@ function FormLogin(props) {
       </Link>
     );
   }
+  
+  useEffect(() => {
+    if(person.username !== ''){
+      console.log("person", person);
+      axios.post("http://localhost:5000/savePerson/", person);
+    }
+  }, [person]);
 
   return (
     <main className="container">
