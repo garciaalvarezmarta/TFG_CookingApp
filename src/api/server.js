@@ -54,9 +54,17 @@ app.get("/userRecipes/:id", async(req,res) => {
   res.json(allRecipes);
 })
 
-
-
 //GetByFilter
+app.get("/recipesFiltered/:filter", async(req,res) =>{
+  const filter = req.params.filter;
+  const recipe = await Recipe.find({ name: { $regex: new RegExp(filter, "i") } });
+  res.json(recipe);
+})
+app.get("/recipesFiltered/", async(req,res) =>{
+  const recipe = await Recipe.find();
+  res.json(recipe);
+})
+
 
 //Save --> POST
 app.post("/saveRecipe", async (req, res) => {

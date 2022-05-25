@@ -27,3 +27,10 @@
     background-color: lightblue;
     height: 800px;
 }
+.editButton{
+    margin-right: 1em;
+}
+.buttons{
+    float:right;
+    margin-top: -3em;
+}

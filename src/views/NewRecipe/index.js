@@ -104,9 +104,11 @@ function NewRecipe() {
   useEffect(() => {
     if (isSave) {
       if (id) {
-        axios.put(`http://localhost:5000/updateRecipe/${id}`, recipe).then((res) => {
-          navigate(`/showRecipe/${res.data._id}`);
-        });
+        axios
+          .put(`http://localhost:5000/updateRecipe/${id}`, recipe)
+          .then((res) => {
+            navigate(`/showRecipe/${res.data._id}`);
+          });
       } else {
         axios.post("http://localhost:5000/saveRecipe", recipe).then((res) => {
           navigate(`/showRecipe/${res.data._id}`);
@@ -116,7 +118,7 @@ function NewRecipe() {
     if (isFirst) {
       console.log(recipe);
       setImage(`/assets/recipeImages/${recipe.img}`);
-      if(!id || recipe.img !== "recipeDefault.jpg"){
+      if (!id || recipe.img !== "recipeDefault.jpg") {
         setIsFirst(false);
       }
     }
@@ -128,8 +130,11 @@ function NewRecipe() {
       <main className="container">
         <Form>
           {/* Imagen de la receta */}
-          <img src={image} alt="preview image" className="recipeImg" />
-          <input type="file" onChange={onImageChange} />
+          <h1 className="categoriesTitle mt-0">Añade tu receta</h1>
+          <div className="selectorImg mt-5">
+            <img src={image} alt="preview image" className="recipeImg" />
+            <p className="mt-4"><input type="file" onChange={onImageChange} className="file-select" /></p>
+          </div>
           <Form.Control
             required
             type="text"
@@ -185,7 +190,7 @@ function NewRecipe() {
             id="button"
             variant="primary"
             onClick={saveRecipe}
-            className="sendButton"
+            className="sendButton mb-5"
             disabled={
               !(
                 recipe.name !== "" &&
@@ -194,10 +199,11 @@ function NewRecipe() {
               )
             }
           >
-            Send
+            Crear Receta
           </Button>
         </Form>
       </main>
+      <img src="./assets/cooker.png" className="cooker d-none d-md-block" />
     </>
   );
 }

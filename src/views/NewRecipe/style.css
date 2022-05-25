@@ -1,26 +1,60 @@
-.tittleArea{
+.tittleArea {
     margin-top: 2em !important;
 
 }
 
-.descriptionArea{
+.descriptionArea {
     margin-top: 2em !important;
     min-height: 100px !important;
 }
 
-.stepsArea{
+.stepsArea {
     margin-top: 2em !important;
     min-height: 300px !important;
 }
 
-.sendButton{
+.sendButton {
     background-color: rgb(63, 88, 63) !important;
-    border-color:rgb(63, 88, 63) !important;
+    border-color: rgb(63, 88, 63) !important;
 }
 
-.recipeImg{
-    width:  400px;
+.recipeImg {
+    width: 400px;
     height: 250px;
     object-fit: cover;
+}
 
+.file-select {
+    position: relative;
+    display: inline-block;
+}
+
+.file-select::before {
+    background-color: #5678EF;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+    content: 'Seleccionar';
+    /* testo por defecto */
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.file-select input[type="file"] {
+    opacity: 0;
+    width: 200px;
+    height: 32px;
+    display: inline-block;
+}
+.cooker{
+    position: absolute;
+    right: 0;
+    bottom:-200px;
+    z-index: 0;
+    width: 15%;
 }

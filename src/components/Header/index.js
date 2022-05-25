@@ -5,6 +5,8 @@ import { BsSearch } from "react-icons/bs";
 import { GrFormAdd } from "react-icons/gr";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import {
   faUser,
   faBookmark,
@@ -49,12 +51,12 @@ function Header() {
               <NavDropdown.Item href="#action5">Saladas</NavDropdown.Item>
             </NavDropdown>
 
-            <Nav.Link href="/">Home</Nav.Link>
+            <Link to="/" className="navbarLinks">Home</Link>
           </Nav>
           <Nav className="d-flex">
-            <Nav.Link href="/newRecipe" style={{ marginRight: "30px" }}>
+            <Link to="/newRecipe" style={{ marginRight: "30px", marginTop: "5px" }} className="navbarLinks">
               <GrFormAdd className="addIcon" /> Añadir Receta
-            </Nav.Link>
+            </Link>
             <NavDropdown
               align="end"
               title={
@@ -70,10 +72,11 @@ function Header() {
                 <FontAwesomeIcon className="userIcon" icon={faUser} />
                 Mi Perfil
               </NavDropdown.Item>
-              <NavDropdown.Item href="/myRecipes">
-                {" "}
+              <NavDropdown.Item>
+                <Link to="/myRecipes" className="navItemLink">
                 <FontAwesomeIcon className="userIcon" icon={faUtensils} />
                 Mis Recetas
+                </Link>
               </NavDropdown.Item>
               <NavDropdown.Item href="#action5">
                 <FontAwesomeIcon className="userIcon" icon={faBookmark} />

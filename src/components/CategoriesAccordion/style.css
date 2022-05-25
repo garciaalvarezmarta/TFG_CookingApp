@@ -1,0 +1,19 @@
+.accordion-item{
+    border: 0px !important;
+}
+
+.accordion-button{
+    background-color: white !important;
+    box-shadow: none !important;
+    color: black !important;
+}
+
+.accordion-button{
+    padding: 0 !important;
+    align-items: baseline !important;
+}
+
+.accordion-button:after{
+    margin-left: 20px;
+    margin-top: ;
+}
