@@ -34,3 +34,8 @@
     float:right;
     margin-top: -3em;
 }
+.saveIcon{
+     font-size: 26px;
+     margin-right: 1em;
+     cursor: pointer;
+}

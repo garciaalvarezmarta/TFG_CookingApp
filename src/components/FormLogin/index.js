@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { registerWithEmail, loginWithEmail, loginWithGoogle } from "../../firebase";
+import {
+  registerWithEmail,
+  loginWithEmail,
+  loginWithGoogle,
+} from "../../firebase";
 import axios from "axios";
 import "./style.css";
 
@@ -11,9 +15,10 @@ function FormLogin(props) {
   const [password, setPassword] = useState("");
 
   const [person, setPerson] = useState({
+    idFirebase: "",
     username: "",
     email: "",
-    password: ""
+    password: "",
   });
 
   let inputName = "";
@@ -42,11 +47,19 @@ function FormLogin(props) {
 
     buttonText = "Registrarme";
 
-    submitType = (e) => {
+    submitType = async (e) => {
       // e es la etiqueta en la que se ejecuta la acción
       e.preventDefault(); //que no se ejecute nada por defecto
-      registerWithEmail(email, password, username);
-      setPerson({username: username, email:email, password: password}); 
+      registerWithEmail(email, password, username).then((userCredential) => {
+        const user = userCredential.user;
+        setPerson({
+          idFirebase: user.uid,
+          username: username,
+          email: email,
+          password: password,
+        });
+      })
+      console.log("Aqui")
     };
 
     switchPage = (
@@ -55,9 +68,10 @@ function FormLogin(props) {
       </Link>
     );
   }
-  
+
   useEffect(() => {
-    if(person.username !== ''){
+    console.log("Antes", person);
+    if (person.username !== "") {
       console.log("person", person);
       axios.post("http://localhost:5000/savePerson/", person);
     }
@@ -95,8 +109,12 @@ function FormLogin(props) {
               {buttonText}
             </Button>
             <hr />
-            <Button variant="primary" onClick={loginWithGoogle} className="googleButton">
-              <img src="/assets/google.png" className="googleIcon"/>
+            <Button
+              variant="primary"
+              onClick={loginWithGoogle}
+              className="googleButton"
+            >
+              <img src="/assets/google.png" className="googleIcon" />
               oogle
             </Button>
           </Form>

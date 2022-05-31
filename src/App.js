@@ -9,7 +9,8 @@ import Home from "./views/Home";
 import Register from "./views/Register";
 import NewRecipe from "./views/NewRecipe";
 import ShowRecipe from "./views/ShowRecipe";
-import MyRecipes from "./views/MyRecipes"
+import MyRecipes from "./views/MyRecipes";
+import FavouriteRecipes from "./views/FavouriteRecipes"
 import ScrollToTop from "./hooks/ScrollToTop";
 
 function App() {
@@ -17,17 +18,20 @@ function App() {
   const authentication = getAuth();
 
   onAuthStateChanged(authentication, (user) => {
-    if (user) {
-      setUser(user);
-    } else {
-      setUser(null);
-    }
+    setTimeout(function () {
+      console.log("PEDO");
+      if (user) {
+        setUser(user);
+      } else { 
+        setUser(null);
+      }
+    }, 500);
   });
 
   return (
     <div className="App">
       <Router>
-        <ScrollToTop/>
+        <ScrollToTop />
         <Routes>
           <Route exact path="/" element={user ? <Home /> : <Login />} />
           <Route exact path="/home" element={user ? <Home /> : <Login />} />
@@ -55,6 +59,11 @@ function App() {
             exact
             path="/myRecipes"
             element={user ? <MyRecipes /> : <Login />}
+          />
+           <Route
+            exact
+            path="/myFavouriteRecipes"
+            element={user ? <FavouriteRecipes /> : <Login />}
           />
         </Routes>
       </Router>

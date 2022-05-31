@@ -78,9 +78,11 @@ function Header() {
                 Mis Recetas
                 </Link>
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action5">
+              <NavDropdown.Item>
+                <Link to="/myFavouriteRecipes" className="navItemLink">
                 <FontAwesomeIcon className="userIcon" icon={faBookmark} />
                 Recetas guardadas
+                </Link>
               </NavDropdown.Item>
               <NavDropdown.Item onClick={logout}>
                 <FontAwesomeIcon className="userIcon" icon={faSignOut} />

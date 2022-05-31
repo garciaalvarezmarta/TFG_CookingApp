@@ -8,6 +8,8 @@ import { getCurrentUserId } from "../../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark } from "@fortawesome/free-regular-svg-icons";
+import {faBookmark as faSolidBookmark}  from "@fortawesome/free-solid-svg-icons";
 
 function ShowRecipe() {
   let navigate = useNavigate();
@@ -20,6 +22,8 @@ function ShowRecipe() {
     userName: "",
     userId: "",
   });
+  const [isSaved, setIsSaved] = useState(false);
+  const currentUserId = getCurrentUserId();
 
   const getRecipe = () => {
     axios.get(`http://localhost:5000/recipes/${id}`).then((result) => {
@@ -27,14 +31,59 @@ function ShowRecipe() {
     });
   };
 
-  const deleteRecipe = () =>{
-    if (window.confirm("¿Estás seguro de que quieres eliminar esta receta?")){
-      console.log("ELIMINAR")
-      axios.delete(`http://localhost:5000/deleteRecipe/${id}`).then((result) => {
-        navigate(`/myRecipes`);
-      });
+  const getIsSaved = () => {
+    axios.get(`http://localhost:5000/isFavouriteSaved/${currentUserId}/${id}`).then((result) => {
+      setIsSaved(result.data);
+    });
+  };
+
+
+  const deleteRecipe = () => {
+    if (window.confirm("¿Estás seguro de que quieres eliminar esta receta?")) {
+      console.log("ELIMINAR");
+      axios
+        .delete(`http://localhost:5000/deleteRecipe/${id}`)
+        .then((result) => {
+          navigate(`/myRecipes`);
+        });
     }
-  }
+  };
+
+  const saveFavouriteRecipe = () => {
+    
+    if (!isSaved) {
+      // Guardarla --> llamar axios actualizar
+      console.log(id)
+      axios
+        .put(
+          `http://localhost:5000/addFavouriteRecipe/${currentUserId}`,
+          {id: id}
+          )
+        .then((result) => {
+          setIsSaved(true);
+        });
+    } else {
+      axios
+        .put(
+          `http://localhost:5000/removeFavouriteRecipe/${currentUserId}`,
+          {id: id}
+          )
+        .then((result) => {
+          setIsSaved(false);
+        });
+    }
+  };
+
+  useEffect(() => {
+    console.log(isSaved);
+    //Cambiar icono
+  }, [isSaved]);
+
+  useEffect(() => {
+    getRecipe();
+    //Esta Guarda
+    getIsSaved();
+  }, []);
 
   const editDeleteButton = (
     <span className="buttons">
@@ -44,21 +93,24 @@ function ShowRecipe() {
         </button>
       </Link>
       <button className="btn btn-danger" onClick={deleteRecipe}>
-          <FontAwesomeIcon icon={faPenToSquare} /> Eliminar
+        <FontAwesomeIcon icon={faPenToSquare} /> Eliminar
       </button>
     </span>
   );
-
-  useEffect(() => {
-    getRecipe();
-  }, []);
 
   return (
     <div>
       <Header />
       <div className=" container-fluid row recipeContainer">
         <main className="col-md-9 main">
-          <h1>{recipe.name}</h1>
+          <h1>
+            <FontAwesomeIcon
+              className="saveIcon"
+              icon={isSaved?faSolidBookmark:faBookmark}
+              onClick={saveFavouriteRecipe}
+            />
+            {recipe.name}{" "}
+          </h1>
           {getCurrentUserId() == recipe.userId ? editDeleteButton : ""}
           <img
             src={"/assets/recipeImages/" + recipe.img}
