@@ -1,3 +1,5 @@
+
+
 .recipeContainer{
     margin-top:3em;    
 }
@@ -5,6 +7,7 @@
 .main{
     padding-right: 7em;
     padding-left: 7em;
+    margin-bottom: 6em;
 }
 
 
@@ -18,13 +21,10 @@
     width: 100%;
     height: 60vh;
     object-fit: cover;
-    
-
 }
 
 .p{
     margin: 3em;
-    background-color: lightblue;
     height: 800px;
 }
 .editButton{
@@ -38,4 +38,62 @@
      font-size: 26px;
      margin-right: 1em;
      cursor: pointer;
+}
+
+.commentField{
+    width: 100%;
+    height: 100px;
+    margin-top: 2em;
+    font-size: 18px;
+    padding: 0.5em;
+}
+.button{
+    float: right;
+}
+.comment{
+    font-family: "Poppins", sans-serif;
+    background-color: white;
+    border-radius: 7px;
+    padding: 1em;
+    box-shadow: 5px 5px 15px 3px rgba(0,0,0,0.11);
+    margin-top: 1em;
+    margin-bottom: 1.5em;
+}
+
+.startIcon{
+    cursor:pointer;
+    color: rgb(255,164,28);
+}
+
+.startIcon2{
+    color: rgb(255,164,28);
+}
+
+.imgUser{
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    background-color: blue;
+    float: left;
+    margin-right: 1em;
+}
+.userName{
+    font-weight: bold;
+    font-size: 16px;
+}
+.time {
+    width: 100%;
+    text-align: right;
+    color:rgb(100, 100, 100)
+    /*margin-left: 1em;*/
+}
+
+.btn-danger{
+    margin-left: 1em !important;
+}
+
+.category{
+    font-size: 16px !important;
+    font-family: "Poppins", sans-serif;
+
 }

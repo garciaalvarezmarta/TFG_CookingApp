@@ -23,12 +23,23 @@ function NewRecipe() {
     description: "",
     steps: "",
     ingredients: [],
+    category: "",
     img: "recipeDefault.jpg",
     userId: getCurrentUserId(),
     userName: getNameFromUser(),
   });
   const [ingredients, setIngredients] = useState([]);
   const [options, setOptions] = useState([]);
+
+  const [optionsCategory, setOptionsCategory] = useState([
+    { value: "asiatica", label: "Asiatica" },
+    { value: "arroces", label: "Arroces" },
+    { value: "ensalada", label: "Ensalada" },
+    { value: "hamburguesa", label: "Hamburguesa" },
+    { value: "pasta", label: "Pasta" },
+    { value: "pizza", label: "Pizza" },
+    { value: "postre", label: "Postre" },
+  ]);
 
   //Cuando creo la receta navego a su vista
   let navigate = useNavigate();
@@ -77,11 +88,16 @@ function NewRecipe() {
   };
 
   const handlerIngredients = (e) => {
-    console.log(e);
     const ivalues = e.map((ivalue) => ivalue.value);
     console.log(ivalues);
     setRecipe((previousVal) => {
       return { ...previousVal, ingredients: ivalues };
+    });
+  };
+
+  const handlerCategory = (e) => {
+    setRecipe((previousVal) => {
+      return { ...previousVal, category: e.value };
     });
   };
 
@@ -133,7 +149,13 @@ function NewRecipe() {
           <h1 className="categoriesTitle mt-0">Añade tu receta</h1>
           <div className="selectorImg mt-5">
             <img src={image} alt="preview image" className="recipeImg" />
-            <p className="mt-4"><input type="file" onChange={onImageChange} className="file-select" /></p>
+            <p className="mt-4 buttonImg">
+              <input
+                type="file"
+                onChange={onImageChange}
+                className="file-select"
+              />
+            </p>
           </div>
           <Form.Control
             required
@@ -158,17 +180,28 @@ function NewRecipe() {
               value={recipe.description}
             />
           </FloatingLabel>
+          <div className="row">
+            <Select
+              value={options.filter((option) =>
+                recipe.ingredients.includes(option.label)
+              )}
+              options={options}
+              name="ingredients"
+              placeholder="Ingredientes *"
+              isMulti
+              onChange={(e) => handlerIngredients(e)}
+              className="col-md-6 mt-2"
+            />
 
-          <Select
-            value={options.filter((option) =>
-              recipe.ingredients.includes(option.label)
-            )}
-            options={options}
-            name="ingredients"
-            placeholder="Ingredientes *"
-            isMulti
-            onChange={(e) => handlerIngredients(e)}
-          />
+            <Select
+              value={optionsCategory.filter((option) => option.value == recipe.category )}
+              options={optionsCategory}
+              name="category"
+              placeholder="Categoría *"
+              className="col-md-6 mt-2"
+              onChange={(e) => handlerCategory(e)}
+            />
+          </div>
 
           <FloatingLabel
             controlId="floatingTextarea"

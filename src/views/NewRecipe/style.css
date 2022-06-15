@@ -36,7 +36,7 @@
     justify-content: center;
     align-items: center;
     border-radius: 3px;
-    content: 'Seleccionar';
+    content: 'Seleccionar imagen';
     /* testo por defecto */
     position: absolute;
     left: 0;
@@ -58,4 +58,8 @@
     z-index: 0;
     width: 15%;
     opacity: 0.6;
+}
+
+.buttonImg{
+    text-align: center;
 }

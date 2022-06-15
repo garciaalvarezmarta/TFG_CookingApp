@@ -6,6 +6,11 @@
 
 }
 
+.groupContainer:hover{
+    cursor:pointer;
+    opacity:70%;
+}
+
 .titleGroup{
     margin-left: 1em ;
     padding-top: 0.5em;
@@ -16,4 +21,12 @@
     margin-left: 3em ;
     width: 350px;
 
+}
+.linkNoStyle{
+    color:black;
+    text-decoration: none;
+}
+
+.linkNoStyle:hover{
+    color:black;
 }

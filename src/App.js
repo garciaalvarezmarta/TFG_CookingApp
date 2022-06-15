@@ -12,9 +12,10 @@ import ShowRecipe from "./views/ShowRecipe";
 import MyRecipes from "./views/MyRecipes";
 import FavouriteRecipes from "./views/FavouriteRecipes"
 import ScrollToTop from "./hooks/ScrollToTop";
+import FilteredRecipes from './views/FilteredRecipes'
 
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const authentication = getAuth();
 
   onAuthStateChanged(authentication, (user) => {
@@ -65,6 +66,12 @@ function App() {
             path="/myFavouriteRecipes"
             element={user ? <FavouriteRecipes /> : <Login />}
           />
+           <Route
+            exact
+            path="/filteredRecipes/:category"
+            element={user ? <FilteredRecipes /> : <Login />}
+          />
+          FilteredRecipes
         </Routes>
       </Router>
     </div>

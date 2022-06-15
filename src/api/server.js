@@ -7,6 +7,8 @@ const { mongoose } = require("./database");
 const Recipe = require("../models/Recipe");
 const Ingredient = require("../models/Ingredient");
 const Person = require("../models/Person");
+const Comment = require("../models/Comment");
+
 const bodyParser = require("body-parser");
 const path = require("path");
 
@@ -32,7 +34,7 @@ app.post("/uploadImg", upload.single("image"), (req, res) => {
   res.json(res.req.file.filename);
 });
 
-//API RECIPES
+//**********API RECIPES
 //GetAll
 app.get("/recipes", async (req, res) => {
   const allRecipes = await Recipe.find();
@@ -77,12 +79,13 @@ app.post("/saveRecipe", async (req, res) => {
     stars: req.body.stars,
     userId: req.body.userId,
     userName: req.body.userName,
+    category: req.body.category
   });
   await recipe.save();
   res.json(recipe);
 });
 
-//Update --> PUT / PATCH
+//Update
 app.put("/updateRecipe/:id", async (req, res) => {
   const id = req.params.id;
   const recipe = await Recipe.findByIdAndUpdate(id, req.body, { new: true });
@@ -97,7 +100,80 @@ app.delete("/deleteRecipe/:id", async (req, res) => {
   res.status(204).send();
 });
 
-//API INGREDIENTS..
+// addFavouriteRecipe -->  actuliza la lista de recetas guardadas del current user
+
+app.put("/addFavouriteRecipe/:id", async (req, res) => {
+  const currentUser = req.params.id;
+  const recipeId = req.body.id;
+  console.log(recipeId);
+  const currentSavedRecipes = JSON.parse(
+    JSON.stringify(await Person.findOne({ idFirebase: currentUser }))
+  ).savedRecipes;
+  console.log(currentSavedRecipes);
+  //const savedRecipesArray = await Person.findById(currentUser).select();
+  currentSavedRecipes.push(recipeId);
+  const person = await Person.findOneAndUpdate(
+    { idFirebase: currentUser },
+    {
+      savedRecipes: currentSavedRecipes,
+    }
+  );
+  await person.save();
+  res.json(person);
+});
+
+//remoFavouriteRecipe
+
+app.put("/removeFavouriteRecipe/:id", async (req, res) => {
+  const currentUser = req.params.id;
+  const recipeId = req.body.id;
+  const currentSavedRecipes = JSON.parse(
+    JSON.stringify(await Person.findOne({ idFirebase: currentUser }))
+  ).savedRecipes;
+  //const savedRecipesArray = await Person.findById(currentUser).select();
+  const auxId = currentSavedRecipes.indexOf(recipeId);
+  currentSavedRecipes.splice(auxId, 1);
+  const person = await Person.findOneAndUpdate(
+    { idFirebase: currentUser },
+    {
+      savedRecipes: currentSavedRecipes,
+    }
+  );
+  await person.save();
+  res.json(person);
+});
+
+//isSaved?? id recete true o false user
+
+app.get("/isFavouriteSaved/:userId/:recipeId", async (req, res) => {
+  const currentUser = req.params.userId;
+  const recipeId = req.params.recipeId;
+  const currentSavedRecipes = JSON.parse(
+    JSON.stringify(await Person.findOne({ idFirebase: currentUser }))
+  ).savedRecipes;
+  const isSaved = currentSavedRecipes.includes(recipeId);
+  res.json(isSaved);
+});
+
+//Sacar recetas favoritas del usuario --> GET/userId
+app.get("/getFavoriteRecipes/:userId", async (req, res) => {
+  const currentUser = req.params.userId;
+  const recipesIdArray = JSON.parse(
+    JSON.stringify(await Person.findOne({ idFirebase: currentUser }))
+  ).savedRecipes;
+  const recipesArray = await Recipe.find({ _id: { $in: recipesIdArray } });
+  console.log(recipesArray);
+  res.json(recipesArray);
+});
+
+//Get Recipe by type
+app.get("/getRecipeByCategory/:category", async (req, res) => {
+  const category = req.params.category;
+  const result = await Recipe.find({ category: category });
+  res.json(result);
+});
+
+//**********API INGREDIENTS
 
 //GetAllIngredients
 app.get("/ingredients", async (req, res) => {
@@ -120,13 +196,7 @@ app.get("/recipes/:id/ingredients", async (req, res) => {
   res.json(ingredients);
 });
 
-//API...
-
-app.listen(port, () => {
-  console.log(`Server running in port ${port}`);
-});
-
-//API People
+//**********API PEOPLE
 
 app.post("/savePerson", async (req, res) => {
   const person = new Person({
@@ -134,64 +204,41 @@ app.post("/savePerson", async (req, res) => {
     password: req.body.password,
     username: req.body.username,
     idFirebase: req.body.idFirebase,
-    savedRecipes: []
+    savedRecipes: [],
   });
   await person.save();
   res.json(person);
 });
 
-//Save Recipe to the user by ID
+app.get("/getUserById/:id", async (req, res) => {
+  const uid = req.params.id;
+  const user = await Person.findOne({ idFirebase: uid });
 
-// addFavouriteRecipe -->  actuliza la lista de recetas guardadas del current user
+  res.json(user);
+});
 
-app.put("/addFavouriteRecipe/:id", async (req, res) => {
-  const currentUser = req.params.id;
-  const recipeId = req.body.id;
-  console.log(recipeId)
-  const currentSavedRecipes = JSON.parse(JSON.stringify(await Person.findOne({idFirebase:currentUser}))).savedRecipes;
-  console.log(currentSavedRecipes)
-  //const savedRecipesArray = await Person.findById(currentUser).select();
-  currentSavedRecipes.push(recipeId);
-  const person = await Person.findOneAndUpdate({idFirebase:currentUser}, {
-    savedRecipes: currentSavedRecipes,
+//**********API COMMENT
+//Save new comment
+app.post("/saveComment", async (req, res) => {
+  const comment = new Comment({
+    commentValue: req.body.value,
+    recipeId: req.body.recipeId,
+    userId: req.body.uid,
+    date: new Date(),
+    stars: req.body.stars,
   });
-  await person.save();
-  res.json(person);
+  await comment.save();
+  res.json(comment);
 });
 
-//remoFavouriteRecipe
-
-app.put("/removeFavouriteRecipe/:id", async (req, res) => {
-  const currentUser = req.params.id;
-  const recipeId = req.body.id;
-  const currentSavedRecipes = JSON.parse(JSON.stringify(await Person.findOne({idFirebase:currentUser}))).savedRecipes;
-  //const savedRecipesArray = await Person.findById(currentUser).select();
-  const auxId = currentSavedRecipes.indexOf(recipeId); 
-  currentSavedRecipes.splice(auxId, 1);
-  const person = await Person.findOneAndUpdate({idFirebase:currentUser}, {
-    savedRecipes: currentSavedRecipes,
-  });
-  await person.save();
-  res.json(person);
+app.get("/getCommentsByRecipe/:id", async (req, res) => {
+  const rid = req.params.id;
+  const comments = await Comment.find({ recipeId: rid });
+  res.json(comments);
 });
 
-//isSaved?? id recete true o false user
+//API...
 
-
-app.get("/isFavouriteSaved/:userId/:recipeId", async (req, res) => {
-  const currentUser = req.params.userId;
-  const recipeId = req.params.recipeId;
-  const currentSavedRecipes = JSON.parse(JSON.stringify(await Person.findOne({idFirebase:currentUser}))).savedRecipes;
-  const isSaved = currentSavedRecipes.includes(recipeId);
-  res.json(isSaved);
+app.listen(port, () => {
+  console.log(`Server running in port ${port}`);
 });
-
-//Sacar recetas favoritas del usuario --> GET/userId 
-app.get("/getFavoriteRecipes/:userId", async (req, res) => {
-const currentUser = req.params.userId;
-const recipesIdArray = JSON.parse(JSON.stringify(await Person.findOne({idFirebase:currentUser}))).savedRecipes;
-const recipesArray = await Recipe.find({_id:{$in: recipesIdArray}});
-console.log(recipesArray)
-res.json(recipesArray);
-
-})

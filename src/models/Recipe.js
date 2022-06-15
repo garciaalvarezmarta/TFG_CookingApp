@@ -10,7 +10,8 @@ const RecipeSchema = new Schema({
   stars: { type: Number },
   comments: { type: String },
   userId: {type: String},
-  userName: {type: String}
+  userName: {type: String},
+  category: {type: String}
 });
 
 module.exports = mongoose.model("recipes", RecipeSchema);

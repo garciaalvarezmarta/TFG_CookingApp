@@ -6,6 +6,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
+  getAdditionalUserInfo,
   signOut
 } from "firebase/auth";
 
@@ -20,6 +21,7 @@ const firebaseConfig = {
 };
 
 export const app = initializeApp(firebaseConfig);
+export let isNew = false;
 const auth = getAuth(app);
 let uid = "no user";
 let userName = "no user";
@@ -27,7 +29,6 @@ let userName = "no user";
 //LOGIN AND REGISTER METHODS
 //Register with mail
 export const registerWithEmail = (email, password, userName) => {
-  console.log(userName);
   return createUserWithEmailAndPassword(auth, email, password);
 };
 
@@ -37,22 +38,23 @@ export const loginWithEmail = (email, password) => {
 };
 
 //Login with Google
-export const loginWithGoogle = () => {
+export const loginWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
-  return signInWithPopup(auth, provider);
+  let result = await signInWithPopup(auth, provider)
+  const {isNewUser} = getAdditionalUserInfo(result)
+  isNew = isNewUser 
+  return result
 };
 
 //CHECK AUTH STATE
 onAuthStateChanged(auth, (user) => {
   if(user){
-    console.log(user);
     uid = user.uid;
     userName=user.displayName;
   }
 });
 
 export const isLogged = () =>{
-  console.log(uid)
   return uid
 }
 

@@ -5,6 +5,7 @@ import {
   registerWithEmail,
   loginWithEmail,
   loginWithGoogle,
+  isNew
 } from "../../firebase";
 import axios from "axios";
 import "./style.css";
@@ -59,7 +60,6 @@ function FormLogin(props) {
           password: password,
         });
       })
-      console.log("Aqui")
     };
 
     switchPage = (
@@ -68,6 +68,22 @@ function FormLogin(props) {
       </Link>
     );
   }
+
+  let handleGoogle = async (e) => {
+    e.preventDefault();
+    loginWithGoogle().then(
+      (result) => {
+        if(isNew){
+          setPerson({
+            idFirebase: result.user.uid,
+            username: result.user.displayName,
+            email: result.user.email,
+            password: '',
+          });
+        }
+      }
+    );
+  };
 
   useEffect(() => {
     console.log("Antes", person);
@@ -111,7 +127,7 @@ function FormLogin(props) {
             <hr />
             <Button
               variant="primary"
-              onClick={loginWithGoogle}
+              onClick={handleGoogle}
               className="googleButton"
             >
               <img src="/assets/google.png" className="googleIcon" />

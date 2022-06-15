@@ -8,7 +8,6 @@ import {
 
 function CardRecipe(props) {
   return (
-    <div className="col-12 col-md-6 col-lg-3">
       <Link to={"/showRecipe/" + props.id} className="linkRecipe">
         <img src={"/assets/recipeImages/"+props.img} className="recipeImage" />
         <div className="row">
@@ -19,7 +18,6 @@ function CardRecipe(props) {
           <small className="recipeProperties"> <FontAwesomeIcon icon={faClock}/> 25-30 min • €€€  </small>
         </div>
       </Link>
-    </div>
   );
 }
 
