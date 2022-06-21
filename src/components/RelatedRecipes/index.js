@@ -30,6 +30,8 @@ function RelatedRecipes(props) {
                     img={recipe.img}
                     key={recipe._id}
                     id={recipe._id}
+                    duration={recipe.duration}
+                    cost={recipe.cost}
                   ></CardRecipe>
                 </div>
             )

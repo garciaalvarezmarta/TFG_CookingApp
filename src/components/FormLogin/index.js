@@ -98,7 +98,7 @@ function FormLogin(props) {
       <div className="formContainer col-lg-4">
         <div className="formCard mainCard">
           <Form>
-            <h1 className="mb-3">Cooking App</h1>
+            <img src="/assets/logo.png" className="logo" />
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control
                 type="email"

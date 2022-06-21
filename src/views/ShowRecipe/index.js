@@ -9,12 +9,11 @@ import { getCurrentUserId } from "../../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { Image } from "react-bootstrap";
-
 import {
   faPenToSquare,
   faStar as faStarSolid,
 } from "@fortawesome/free-solid-svg-icons";
-import { faBookmark, faStar } from "@fortawesome/free-regular-svg-icons";
+import { faBookmark, faStar,faClock } from "@fortawesome/free-regular-svg-icons";
 import { faBookmark as faSolidBookmark } from "@fortawesome/free-solid-svg-icons";
 
 function ShowRecipe() {
@@ -44,7 +43,8 @@ function ShowRecipe() {
     ingredients: [],
     userName: "",
     userId: "",
-    category: ""
+    category: "",
+    cost: ""
   });
   const [isSaved, setIsSaved] = useState(false);
   const [user, setUser] = useState("");
@@ -261,7 +261,7 @@ function ShowRecipe() {
         <FontAwesomeIcon icon={faPenToSquare} /> Eliminar
       </button>
       <Link to={"/editRecipe/" + id} className="editButton">
-        <button className="btn btn-primary button">
+        <button className="btn btn-primary button buttonForm">
           <FontAwesomeIcon icon={faPenToSquare} /> Edit
         </button>
       </Link>
@@ -290,6 +290,7 @@ function ShowRecipe() {
             className="imgRecipe"
           />
           <div>
+            <p className="priceTime"><FontAwesomeIcon icon={faClock} /> {recipe.duration} min · {recipe.cost}</p>
             <p>{recipe.description}</p>
             <hr />
             <h2>Ingredientes:</h2>
@@ -310,7 +311,7 @@ function ShowRecipe() {
             onChange={(e) => handleComment(e)}
           ></textarea>
           {starsShow()}
-          <button className="btn btn-primary button" onClick={saveComment}>
+          <button className="btn btn-primary button buttonForm" onClick={saveComment}>
             Enviar
           </button>
 

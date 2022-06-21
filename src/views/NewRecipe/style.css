@@ -1,3 +1,7 @@
+.newRecipeContainer{
+    font-family: "Poppins", sans-serif;
+}
+
 .tittleArea {
     margin-top: 2em !important;
 
@@ -12,12 +16,29 @@
     margin-top: 2em !important;
     min-height: 300px !important;
 }
-
-.sendButton {
-    background-color: rgb(63, 88, 63) !important;
-    border-color: rgb(63, 88, 63) !important;
-}
-
+.buttonForm {
+    background-color: #31b0b4;
+    border-color: #31b0b4;
+    box-shadow: 6px 8px 13px -9px #696969;
+  }
+  .buttonForm:hover {
+    background-color: #008e90 !important; 
+    border-color: #008e90 !important;
+  }
+  
+  .buttonForm:focus {
+    background-color: #31b0b4;
+    border-color: #31b0b4;
+    box-shadow: none;
+    box-shadow: 6px 7px 13px -9px #696969;
+  }
+  
+  .buttonForm:active {
+    background-color: #008e90;
+    border-color: #008e90;
+    box-shadow: none !important;
+    border: 1px solid white;
+  }
 .recipeImg {
     width: 400px;
     height: 250px;
@@ -30,7 +51,7 @@
 }
 
 .file-select::before {
-    background-color: #5678EF;
+    background-color: #31AFB4;
     color: white;
     display: flex;
     justify-content: center;
@@ -43,6 +64,7 @@
     right: 0;
     top: 0;
     bottom: 0;
+    cursor: pointer;
 }
 
 .file-select input[type="file"] {
@@ -53,11 +75,11 @@
 }
 .cooker{
     position: absolute;
-    right: 0;
+    right: 0px;
     bottom:-200px;
     z-index: 0;
-    width: 15%;
-    opacity: 0.6;
+    width: 30%;
+    opacity: 0.1;
 }
 
 .buttonImg{

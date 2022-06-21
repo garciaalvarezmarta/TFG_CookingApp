@@ -15,7 +15,7 @@ function CardRecipe(props) {
           <div></div>
         </div>
         <div className="row">
-          <small className="recipeProperties"> <FontAwesomeIcon icon={faClock}/> 25-30 min • €€€  </small>
+          <small className="recipeProperties"> <FontAwesomeIcon icon={faClock}/> {props.duration} min • {props.cost}  </small>
         </div>
       </Link>
   );

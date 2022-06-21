@@ -1,9 +1,9 @@
 import React from 'react';
 import FormLogin from '../../components/FormLogin'
-
+import './style.css'
 function Login() {
   return (
-    <div>
+    <div className="mainLogin">
         <FormLogin type="login"/>
     </div>
     );

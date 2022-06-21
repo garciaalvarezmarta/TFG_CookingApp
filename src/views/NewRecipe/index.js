@@ -27,6 +27,8 @@ function NewRecipe() {
     img: "recipeDefault.jpg",
     userId: getCurrentUserId(),
     userName: getNameFromUser(),
+    cost: "€",
+    duration: 0,
   });
   const [ingredients, setIngredients] = useState([]);
   const [options, setOptions] = useState([]);
@@ -101,6 +103,18 @@ function NewRecipe() {
     });
   };
 
+  const handleRadio = (e) => {
+    setRecipe((previousVal) => {
+      return { ...previousVal, cost: e.target.value };
+    });
+  };
+
+  const handlerDuration = (e) =>{
+    setRecipe((previousVal) => {
+      return { ...previousVal, duration: e.target.value };
+    });
+  }
+
   useEffect(() => {
     getIngredients();
     if (id) {
@@ -118,6 +132,7 @@ function NewRecipe() {
   }, [ingredients]);
 
   useEffect(() => {
+    console.log(recipe);
     if (isSave) {
       if (id) {
         axios
@@ -143,10 +158,9 @@ function NewRecipe() {
   return (
     <>
       <Header />
-      <main className="container">
+      <main className="container newRecipeContainer">
         <Form>
           {/* Imagen de la receta */}
-          <h1 className="categoriesTitle mt-0">Añade tu receta</h1>
           <div className="selectorImg mt-5">
             <img src={image} alt="preview image" className="recipeImg" />
             <p className="mt-4 buttonImg">
@@ -194,7 +208,9 @@ function NewRecipe() {
             />
 
             <Select
-              value={optionsCategory.filter((option) => option.value == recipe.category )}
+              value={optionsCategory.filter(
+                (option) => option.value == recipe.category
+              )}
               options={optionsCategory}
               name="category"
               placeholder="Categoría *"
@@ -218,25 +234,79 @@ function NewRecipe() {
               value={recipe.steps}
             />
           </FloatingLabel>
+          <div className="row mt-5 mb-5">
+            <div key={`inline-radio`} className="col-6 row">
+              <div className="col-1">
+              Coste:
+
+              </div>
+              <div className="col-11">
+              <Form.Check
+                inline
+                label="€"
+                name="group"
+                type="radio"
+                id={`inline-radio-1`}
+                value="€"
+                onChange={(e) => handleRadio(e)}
+                defaultChecked
+              />
+              <Form.Check
+                inline
+                label="€€"
+                name="group"
+                type="radio"
+                id={`inline-radio-2`}
+                value="€€"
+                onChange={(e) => handleRadio(e)}
+              />
+              <Form.Check
+                inline
+                label="€€€"
+                name="group"
+                type="radio"
+                id={`inline-radio-2`}
+                value="€€€"
+                onChange={(e) => handleRadio(e)}
+              />
+              </div>
+            </div>
+            <div className="col-6 row">
+              <div className="col-2">
+                Duración:
+              </div>
+              <div className="col-9">
+                <Form.Control
+                  required
+                  type="number"
+                  name="duration"
+                  className="mb-3 time"
+                  onChange={(e) => handlerDuration(e)}
+                  value={recipe.duration}
+                />
+              </div>
+              <div className="col-1">min.</div>
+            </div>
+          </div>
 
           <Button
             id="button"
-            variant="primary"
             onClick={saveRecipe}
-            className="sendButton mb-5"
+            className="buttonForm mb-5"
             disabled={
               !(
                 recipe.name !== "" &&
                 recipe.steps !== "" &&
-                recipe.ingredients.length !== 0
+                recipe.ingredients.length !== 0 &&
+                recipe.duration != ""
               )
             }
           >
             Crear Receta
           </Button>
         </Form>
+
       </main>
-      <img src="./assets/cooker.png" className="cooker d-none d-md-block" />
     </>
   );
 }

@@ -4,7 +4,7 @@ import { getCurrentUserId } from "../../firebase";
 import { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import CardRecipe from "../../components/CardRecipe";
-import "./index.css";
+import "./style.css";
 
 function MyRecipes() {
   const [recipes, setRecipes] = useState([]);

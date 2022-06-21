@@ -11,7 +11,9 @@ const RecipeSchema = new Schema({
   comments: { type: String },
   userId: {type: String},
   userName: {type: String},
-  category: {type: String}
+  category: {type: String},
+  cost: {type: String},
+  duration: {type: Number}
 });
 
 module.exports = mongoose.model("recipes", RecipeSchema);

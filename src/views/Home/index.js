@@ -102,7 +102,7 @@ function Home() {
                   <span className="col-12 col-sm-6 col-md-4 col-lg-2" onClick={(e) => handleCat(e, "arroces")}>
                     <CardGroup
                       title="Arroces"
-                      color="#ff6961"
+                      color="#d67676"
                       img="/assets/risotto.png"
                       category="arroces"
                     />
@@ -110,7 +110,7 @@ function Home() {
                   <span className="col-12 col-sm-6 col-md-4 col-lg-2" onClick={(e) => handleCat(e, "pasta")}>
                     <CardGroup
                       title="Pasta"
-                      color="#77dd77"
+                      color="#8fd2ae"
                       img="/assets/pasta.png"
                       category="pasta"
                     />
@@ -160,6 +160,8 @@ function Home() {
                 img={recipe.img}
                 key={recipe._id}
                 id={recipe._id}
+                duration={recipe.duration}
+                    cost={recipe.cost}
               ></CardRecipe>
               </div>
             ))}

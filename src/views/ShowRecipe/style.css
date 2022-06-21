@@ -97,3 +97,8 @@
     font-family: "Poppins", sans-serif;
 
 }
+
+.priceTime{
+    width: 100%;
+    text-align: right !important;
+}

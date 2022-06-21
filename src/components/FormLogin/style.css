@@ -1,11 +1,11 @@
 
 .container {
   text-align: center;
+  font-family: 'Poppins', sans-serif;
 }
 
 .formContainer {
   margin: auto;
-  margin-top: 5em;
 }
 
 .formCard {
@@ -21,25 +21,25 @@
 }
 
 .buttonForm {
-  background-color: #cd8b62;
-  border-color: #cd8b62;
+  background-color: #31b0b4;
+  border-color: #31b0b4;
   box-shadow: 6px 8px 13px -9px #696969;
 }
 .buttonForm:hover {
-  background-color: #c04e29 !important; 
-  border-color: #c04e29 !important;
+  background-color: #008e90 !important; 
+  border-color: #008e90 !important;
 }
 
 .buttonForm:focus {
-  background-color: #cd8b62;
-  border-color: #cd8b62;
+  background-color: #31b0b4;
+  border-color: #31b0b4;
   box-shadow: none;
   box-shadow: 6px 7px 13px -9px #696969;
 }
 
 .buttonForm:active {
-  background-color: #c04e29;
-  border-color: #c04e29;
+  background-color: #008e90;
+  border-color: #008e90;
   box-shadow: none !important;
   border: 1px solid white;
 }
@@ -58,9 +58,14 @@
   }
 
 .link {
-  color: #cd8b62;
+  color: #31b0b4;
   text-decoration: none;
 }
 .link:hover {
-  color: #c04e29;
+  color: #008e90;
+}
+
+.logo{
+  width: 180px;
+  margin-bottom: 2em;
 }

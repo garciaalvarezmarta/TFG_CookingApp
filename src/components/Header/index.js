@@ -27,15 +27,14 @@ function Header() {
   }, []);
 
   return (
-    <Navbar expand="sm" className={`navbar ${offset !== 0 ? "navbarShadow" : ""}`}>
+    <Navbar expand="lg" className={`navbar ${offset !== 0 ? "navbarShadow" : ""}`}>
       <Container fluid>
-        <Navbar.Brand href="#" className="d-block d-sm-none">
+        <Navbar.Brand href="#" className="d-block d-lg-none">
           <img
-            src="https://cdn.sstatic.net/Sites/stackoverflow/Img/apple-touch-icon@2.png?v=73d79a89bded"
+            src="/assets/logo.png"
             alt="logo"
-            height="80"
+            height="30"
           />
-          Cooking App
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -45,17 +44,25 @@ function Header() {
               title="Recetas"
               id="navbarScrollingDropdown"
               style={{ marginRight: "30px" }}
+              className="hover-underline-animation"
             >
               <NavDropdown.Item href="#action3">Vegetarianas</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">Celiacos</NavDropdown.Item>
-              <NavDropdown.Item href="#action5">Saladas</NavDropdown.Item>
+              <NavDropdown.Item href="#action4">Veganas</NavDropdown.Item>
+              <NavDropdown.Item href="#action5">Para celíacos</NavDropdown.Item>
             </NavDropdown>
 
-            <Link to="/" className="navbarLinks">Home</Link>
+            <Link to="/" className="navbarLinks hover-underline-animation" >Home</Link>
+          </Nav>
+          <Nav className="d-flex d-none d-lg-block logoNav">
+            <img
+              src="/assets/logo.png"
+              alt="logo"
+              height="30"
+            />
           </Nav>
           <Nav className="d-flex">
-            <Link to="/newRecipe" style={{ marginRight: "30px", marginTop: "5px" }} className="navbarLinks">
-              <GrFormAdd className="addIcon" /> Añadir Receta
+            <Link to="/newRecipe" style={{ marginRight: "30px", marginTop: "5px" }} className="navbarLinks hover-underline-animation">
+              <GrFormAdd className="addIcon " /> Añadir Receta
             </Link>
             <NavDropdown
               align="end"

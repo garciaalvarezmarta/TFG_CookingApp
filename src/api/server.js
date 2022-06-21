@@ -79,7 +79,9 @@ app.post("/saveRecipe", async (req, res) => {
     stars: req.body.stars,
     userId: req.body.userId,
     userName: req.body.userName,
-    category: req.body.category
+    category: req.body.category,
+    cost: req.body.cost,
+    duration: req.body.duration
   });
   await recipe.save();
   res.json(recipe);
@@ -143,7 +145,7 @@ app.put("/removeFavouriteRecipe/:id", async (req, res) => {
   res.json(person);
 });
 
-//isSaved?? id recete true o false user
+//isSaved?? true or false 
 
 app.get("/isFavouriteSaved/:userId/:recipeId", async (req, res) => {
   const currentUser = req.params.userId;
