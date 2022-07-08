@@ -2,6 +2,7 @@
 
 .recipeContainer{
     margin-top:3em;    
+    font-family: 'Poppins', sans-serif;
 }
 
 .main{
@@ -102,3 +103,5 @@
     width: 100%;
     text-align: right !important;
 }
+
+

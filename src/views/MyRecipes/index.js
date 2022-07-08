@@ -43,6 +43,8 @@ function MyRecipes() {
               img={recipe.img}
               key={recipe._id}
               id={recipe._id}
+              cost={recipe.cost}
+              duration={recipe.duration}
             ></CardRecipe>
           </div>
         ))}

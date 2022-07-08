@@ -280,6 +280,7 @@ function NewRecipe() {
                   required
                   type="number"
                   name="duration"
+                  min='0'
                   className="mb-3 time"
                   onChange={(e) => handlerDuration(e)}
                   value={recipe.duration}
