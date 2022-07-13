@@ -241,6 +241,6 @@ app.get("/getCommentsByRecipe/:id", async (req, res) => {
 
 //API...
 
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
   console.log(`Server running in port ${port}`);
 });
