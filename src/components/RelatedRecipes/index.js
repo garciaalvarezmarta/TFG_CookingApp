@@ -9,7 +9,7 @@ function RelatedRecipes(props) {
 
     const getRecipesByCategory =  () => {
         console.log("categoria", props.category)
-        axios.get(`http://localhost:5000/getRecipeByCategory/${props.category}`).then(result =>{
+        axios.get(`https://servercookeat.herokuapp.com/getRecipeByCategory/${props.category}`).then(result =>{
             setRecipes(result.data)
         })
     }

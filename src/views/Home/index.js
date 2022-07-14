@@ -18,14 +18,14 @@ function Home() {
   //Protocolo HTTP -->
 
   const getRecipes = () => {
-    axios.get("http://localhost:5000/recipes").then((result) => {
+    axios.get("https://servercookeat.herokuapp.com/recipes").then((result) => {
       setRecipes(result.data);
     });
   };
 
   const getRecipesByFilter = () => {
     axios
-      .get(`http://localhost:5000/recipesFiltered/${filter}`)
+      .get(`https://servercookeat.herokuapp.com/recipesFiltered/${filter}`)
       .then((result) => {
         setRecipes(result.data);
       });
@@ -33,7 +33,7 @@ function Home() {
 
   const getByCategory = async () => {
     axios
-      .get("http://localhost:5000/getRecipeByCategory/" + category)
+      .get("https://servercookeat.herokuapp.com/getRecipeByCategory/" + category)
       .then((result) => {
         setRecipes(result.data);
       });

@@ -11,7 +11,7 @@ function FavouriteRecipes() {
 
   const getByUser = async () => {
     axios
-      .get("http://localhost:5000/getFavoriteRecipes/" + getCurrentUserId())
+      .get("https://servercookeat.herokuapp.com/getFavoriteRecipes/" + getCurrentUserId())
       .then((result) => {
         setRecipes(result.data);
       });

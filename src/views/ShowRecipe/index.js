@@ -50,20 +50,20 @@ function ShowRecipe() {
   const [user, setUser] = useState("");
 
   const getUserComment = async (uid) => {
-    const result = await axios.get(`http://localhost:5000/getUserById/${uid}`);
+    const result = await axios.get(`https://servercookeat.herokuapp.com/getUserById/${uid}`);
     console.log("user",result)
     setUser(result.data);
   };
 
   const getRecipe = () => {
-    axios.get(`http://localhost:5000/recipes/${id}`).then((result) => {
+    axios.get(`https://servercookeat.herokuapp.com/recipes/${id}`).then((result) => {
       setRecipe(result.data);
     });
   };
 
   const getComments = () => {
     axios
-      .get(`http://localhost:5000/getCommentsByRecipe/${id}`)
+      .get(`https://servercookeat.herokuapp.com/getCommentsByRecipe/${id}`)
       .then((result) => {
         setRecipeComments(result.data);
       });
@@ -71,7 +71,7 @@ function ShowRecipe() {
 
   const getIsSaved = () => {
     axios
-      .get(`http://localhost:5000/isFavouriteSaved/${currentUserId}/${id}`)
+      .get(`https://servercookeat.herokuapp.com/isFavouriteSaved/${currentUserId}/${id}`)
       .then((result) => {
         setIsSaved(result.data);
       });
@@ -81,7 +81,7 @@ function ShowRecipe() {
     if (window.confirm("¿Estás seguro de que quieres eliminar esta receta?")) {
       console.log("ELIMINAR");
       axios
-        .delete(`http://localhost:5000/deleteRecipe/${id}`)
+        .delete(`https://servercookeat.herokuapp.com/deleteRecipe/${id}`)
         .then((result) => {
           navigate(`/myRecipes`);
         });
@@ -93,7 +93,7 @@ function ShowRecipe() {
       // Guardarla --> llamar axios actualizar
       console.log(id);
       axios
-        .put(`http://localhost:5000/addFavouriteRecipe/${currentUserId}`, {
+        .put(`https://servercookeat.herokuapp.com/addFavouriteRecipe/${currentUserId}`, {
           id: id,
         })
         .then((result) => {
@@ -101,7 +101,7 @@ function ShowRecipe() {
         });
     } else {
       axios
-        .put(`http://localhost:5000/removeFavouriteRecipe/${currentUserId}`, {
+        .put(`https://servercookeat.herokuapp.com/removeFavouriteRecipe/${currentUserId}`, {
           id: id,
         })
         .then((result) => {
@@ -121,7 +121,7 @@ function ShowRecipe() {
     if (stars === 0) {
       alert("Valora esta receta antes de dejar tu comentario.");
     } else {
-      axios.post("http://localhost:5000/saveComment", comment).then((res) => {
+      axios.post("https://servercookeat.herokuapp.com/saveComment", comment).then((res) => {
         getComments();
       });
     }

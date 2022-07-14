@@ -10,7 +10,7 @@ function FilteredRecipes() {
   const { category } = useParams();
   const getByCategory = async () => {
     axios
-      .get("http://localhost:5000/getRecipeByCategory/" + category)
+      .get("https://servercookeat.herokuapp.com/getRecipeByCategory/" + category)
       .then((result) => {
         setRecipes(result.data);
       });

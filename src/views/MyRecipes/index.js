@@ -12,7 +12,7 @@ function MyRecipes() {
 
   const getByUser = async () => {
     axios
-      .get("http://localhost:5000/userRecipes/" + getCurrentUserId())
+      .get("https://servercookeat.herokuapp.com/userRecipes/" + getCurrentUserId())
       .then((result) => {
         setRecipes(result.data);
       });
@@ -20,7 +20,7 @@ function MyRecipes() {
 
   const getUser = async () => {
     axios
-      .get("http://localhost:5000/getUserById/" + getCurrentUserId())
+      .get("https://servercookeat.herokuapp.com/getUserById/" + getCurrentUserId())
       .then((result) => {
         setUser(result.data);
       });

@@ -47,13 +47,13 @@ function NewRecipe() {
   let navigate = useNavigate();
 
   const getIngredients = () => {
-    axios.get("http://localhost:5000/ingredients").then((result) => {
+    axios.get("https://servercookeat.herokuapp.com/ingredients").then((result) => {
       setIngredients(result.data);
     });
   };
 
   const getRecipe = () => {
-    axios.get(`http://localhost:5000/recipes/${id}`).then((result) => {
+    axios.get(`https://servercookeat.herokuapp.com/recipes/${id}`).then((result) => {
       setRecipe(result.data);
     });
   };
@@ -71,7 +71,7 @@ function NewRecipe() {
       let formData = new FormData();
       formData.append("image", imgFile);
       //Esperar a que se haga la llamada --> res ruta de la imagen
-      urlImg = await axios.post("http://localhost:5000/uploadImg", formData, {
+      urlImg = await axios.post("https://servercookeat.herokuapp.com/uploadImg", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -136,12 +136,12 @@ function NewRecipe() {
     if (isSave) {
       if (id) {
         axios
-          .put(`http://localhost:5000/updateRecipe/${id}`, recipe)
+          .put(`https://servercookeat.herokuapp.com/updateRecipe/${id}`, recipe)
           .then((res) => {
             navigate(`/showRecipe/${res.data._id}`);
           });
       } else {
-        axios.post("http://localhost:5000/saveRecipe", recipe).then((res) => {
+        axios.post("https://servercookeat.herokuapp.com/saveRecipe", recipe).then((res) => {
           navigate(`/showRecipe/${res.data._id}`);
         });
       }
