@@ -235,7 +235,7 @@ function NewRecipe() {
             />
           </FloatingLabel>
           <div className="row mt-5 mb-5">
-            <div key={`inline-radio`} className="col-6 row">
+            <div key={`inline-radio`} className="col-md-6 row">
               <div className="col-1">
               Coste:
 
@@ -271,11 +271,11 @@ function NewRecipe() {
               />
               </div>
             </div>
-            <div className="col-6 row">
-              <div className="col-2">
+            <div className="col-md-6 row">
+              <div className="col-3">
                 Duración:
               </div>
-              <div className="col-9">
+              <div className="col-8">
                 <Form.Control
                   required
                   type="number"

@@ -27,7 +27,7 @@ function FavouriteRecipes() {
       <h1 className="title">Mis recetas favoritas</h1>
       <div className="row p-4">
         {recipes.map((recipe) => (
-          <div className="col-12 col-md-6 col-lg-3">
+          <div className="col-12 col-md-6 col-lg-3 mb-4">
           <CardRecipe
             name={recipe.name}
             img={recipe.img}

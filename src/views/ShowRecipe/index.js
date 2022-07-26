@@ -262,7 +262,7 @@ function ShowRecipe() {
       </button>
       <Link to={"/editRecipe/" + id} className="editButton">
         <button className="btn btn-primary button buttonForm">
-          <FontAwesomeIcon icon={faPenToSquare} /> Edit
+          <FontAwesomeIcon icon={faPenToSquare} /> Editar
         </button>
       </Link>
     </span>

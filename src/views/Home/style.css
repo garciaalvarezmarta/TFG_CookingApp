@@ -50,3 +50,11 @@
 .accordion-button:after{
     margin-left: 20px;
 }
+
+@media only screen and (max-width: 800px) {
+    .myContainer{
+        padding: 0 1em 0 1em;
+    }
+    
+  }
+

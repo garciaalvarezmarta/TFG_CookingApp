@@ -154,7 +154,7 @@ function Home() {
           {/*ÚLTIMAS RECETAS*/}
           <div className="row mt-5 mb-5">
             {recipes.map((recipe) => (
-              <div className="col-12 col-md-6 col-lg-3">
+              <div className="col-12 col-md-6 col-lg-3 mb-4">
               <CardRecipe
                 name={recipe.name}
                 img={recipe.img}
